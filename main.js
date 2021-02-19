@@ -112,7 +112,34 @@ function drawText(text, x, y, color) {
             x: canvas.width/2,
             y: canvas.height/2,
             radius: 10,
+            speed: 5,
+            velocityX: 5,
+            velocityY: 5,
             color: "WHITE"
+        }
+
+
+        function update(){
+            ball.x += velocityX;  //X+
+            ball.y += velocityY; //Y+
+            if(ball.y + ball.radius > canvas.height ||
+                ball.y - ball.radius < 0 ){
+                    velocityY = -velocityY;
+                }
+        }
+
+
+        function collision(b,p) {
+            p.top = p.y;
+            p.bottom = p.y + p.height;
+
+            p.left = p.x;
+            p.right = p.x + p.width;
+
+            b.top = b.y - b.radius;
+            b.bottom = b.y + b.radius;
+            b.left = b.x - b.radius;
+            b.right = b.x + b.radius;
         }
         
       
@@ -129,10 +156,12 @@ function drawText(text, x, y, color) {
 
         function game(){
 
-            render()
+            render();
+            
         }
 
-        game()
+        const framePerSecond = 50;
+        setInterval(game, 1000/framePerSecond); //appelle game, 50 fois par 1000ms soit 1 seconde
         
         
         
